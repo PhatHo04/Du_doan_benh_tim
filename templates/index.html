@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Dự đoán bệnh tim</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f6f6;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      max-width: 600px;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      background-color: #007BFF;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Dự đoán khả năng mắc bệnh tim</h1>
+
+<form action="/predict" method="POST">
+  <label>Tuổi:</label>
+  <input type="number" name="age" required>
+
+  <label>Giới tính:</label>
+  <select name="sex">
+    <option value="1">Nam</option>
+    <option value="0">Nữ</option>
+  </select>
+
+  <label>Kiểu đau ngực (cp):</label>
+  <select name="cp">
+    <option value="0">Đau kiểu 0</option>
+    <option value="1">Đau kiểu 1</option>
+    <option value="2">Đau kiểu 2</option>
+    <option value="3">Đau kiểu 3</option>
+  </select>
+
+  <label>Huyết áp nghỉ (trestbps):</label>
+  <input type="number" name="trestbps" required>
+
+  <label>Cholesterol (chol):</label>
+  <input type="number" name="chol" required>
+
+  <label>Đường huyết lúc đói > 120mg/dl (fbs):</label>
+  <select name="fbs">
+    <option value="1">Có</option>
+    <option value="0">Không</option>
+  </select>
+
+  <label>Điện tâm đồ nghỉ (restecg):</label>
+  <select name="restecg">
+    <option value="0">Bình thường</option>
+    <option value="1">Có bất thường ST-T</option>
+    <option value="2">Dày thất trái</option>
+  </select>
+
+  <label>Nhịp tim tối đa (thalach):</label>
+  <input type="number" name="thalach" required>
+
+  <label>Bị đau khi gắng sức (exang):</label>
+  <select name="exang">
+    <option value="1">Có</option>
+    <option value="0">Không</option>
+  </select>
+
+  <label>ST chênh lệch (oldpeak):</label>
+  <input type="number" name="oldpeak" step="0.1" required>
+
+  <label>Dốc ST khi tập thể dục (slope):</label>
+  <select name="slope">
+    <option value="0">Dốc đi xuống</option>
+    <option value="1">Phẳng</option>
+    <option value="2">Dốc lên</option>
+  </select>
+
+  <label>Số lượng mạch chính được nhuộm màu (ca):</label>
+  <select name="ca">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+  </select>
+
+  <label>Thalassemia (thal):</label>
+  <select name="thal">
+    <option value="3">Bình thường</option>
+    <option value="6">Cố định lỗi</option>
+    <option value="7">Có thể đảo ngược</option>
+  </select>
+
+  <button type="submit">Dự đoán</button>
+</form>
+
+{% if result %}
+  <div class="result">
+    <p><strong>Kết quả:</strong> {{ result }}</p>
+  </div>
+{% endif %}
+
+</body>
+</html>
